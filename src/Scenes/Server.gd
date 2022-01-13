@@ -23,6 +23,12 @@ func _ready()->void:
 
 # Setup the server.
 func setup_server()->void:
+	setup_connection()
+	setup_world()
+
+
+# Setup the websocket server to enable client connections.
+func setup_connection()->void:
 	# Setup game server.
 	var _WebSocketServer = WebSocketServer.new()
 	# - We only need the ssl certificates if we are on a
@@ -42,4 +48,29 @@ func setup_server()->void:
 	_WebSocketServer.connect("peer_disconnected", self, "_on_peer_disconnected")
 	
 	# print some success message for debugging
-	print("Server started sucessfully!")
+	print("Client connections enabled!")
+	
+	
+# Setup the game world.
+func setup_world()->void:
+	# Load world data from API.
+	var world_data = OpenPixelverseAPI.load_world_data(Config.get_value("World", "world", "default"))
+	
+	# Validate type.
+	assert(world_data.has("type"), "[Server] No type in world data.")
+	
+	# Create container variable for response.
+	var _World
+	
+	# Match the type.
+	match world_data.type:
+		"2D":
+			_World = OpenPixelverseWorld2D.new(world_data)
+		_:
+			assert(false, "[Server] No valid type in world data.")
+	
+	# Set the name of the world node to "World".
+	_World.name = "World"
+	
+	# Add the world node as child to the server.
+	add_child(_World)

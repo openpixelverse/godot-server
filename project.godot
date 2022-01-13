@@ -8,6 +8,34 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Builder",
+"language": "GDScript",
+"path": "res://src/Static/Builder.gd"
+}, {
+"base": "Node2D",
+"class": "ObjectsContainer2D",
+"language": "GDScript",
+"path": "res://src/Classes/ObjectsContainer2D.gd"
+}, {
+"base": "Node2D",
+"class": "OpenPixelverseWorld2D",
+"language": "GDScript",
+"path": "res://src/Classes/OpenPixelverseWorld2D.gd"
+}, {
+"base": "StaticBody2D",
+"class": "StaticObject2D",
+"language": "GDScript",
+"path": "res://src/Classes/StaticObject2D.gd"
+} ]
+_global_script_class_icons={
+"Builder": "",
+"ObjectsContainer2D": "",
+"OpenPixelverseWorld2D": "",
+"StaticObject2D": ""
+}
+
 [application]
 
 config/name="Open Pixelverse Server"
@@ -18,6 +46,12 @@ config/icon="res://icon.png"
 
 Router="*res://src/Singletons/Router.gd"
 Config="*res://src/Singletons/Config.gd"
+OpenPixelverseAPI="*res://src/Singletons/OpenPixelverseAPI.gd"
+
+[display]
+
+window/size/test_width=1024
+window/size/test_height=600
 
 [importer_defaults]
 

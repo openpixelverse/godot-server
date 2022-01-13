@@ -7,7 +7,7 @@ extends Node
 
 
 var config = false
-var env = "prod"
+var env = "local"
 
 
 ########################################################
@@ -21,13 +21,6 @@ func load_config():
 	var err = config.load("res://" + str(env) + ".cfg")
 	if err != OK:
 		print(err)
-
-
-# Called when we are ready to load game internal configuration values.
-func load_additional_config():
-	# set some additional variables
-	# - Server
-	config.set_value("Server", "player_id", get_tree().get_network_unique_id())
 
 
 # Called whenever we want to access a value from the cofig.
