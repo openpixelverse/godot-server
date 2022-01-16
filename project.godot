@@ -15,6 +15,16 @@ _global_script_classes=[ {
 "path": "res://src/Static/Builder.gd"
 }, {
 "base": "Node2D",
+"class": "EnemiesContainer2D",
+"language": "GDScript",
+"path": "res://src/Classes/EnemiesContainer2D.gd"
+}, {
+"base": "Subject2D",
+"class": "Enemy2D",
+"language": "GDScript",
+"path": "res://src/Classes/Enemy2D.gd"
+}, {
+"base": "Node2D",
 "class": "ObjectsContainer2D",
 "language": "GDScript",
 "path": "res://src/Classes/ObjectsContainer2D.gd"
@@ -24,16 +34,42 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/OpenPixelverseWorld2D.gd"
 }, {
+"base": "Node2D",
+"class": "SpawnArea2D",
+"language": "GDScript",
+"path": "res://src/Classes/SpawnArea2D.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://src/Classes/StateMachine.gd"
+}, {
 "base": "StaticBody2D",
 "class": "StaticObject2D",
 "language": "GDScript",
 "path": "res://src/Classes/StaticObject2D.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Subject2D",
+"language": "GDScript",
+"path": "res://src/Classes/Subject2D.gd"
+}, {
+"base": "Node2D",
+"class": "SubjectsContainer2D",
+"language": "GDScript",
+"path": "res://src/Classes/SubjectsContainer2D.gd"
 } ]
 _global_script_class_icons={
 "Builder": "",
+"EnemiesContainer2D": "",
+"Enemy2D": "",
 "ObjectsContainer2D": "",
 "OpenPixelverseWorld2D": "",
-"StaticObject2D": ""
+"SpawnArea2D": "",
+"StateMachine": "",
+"StaticObject2D": "",
+"Subject2D": "",
+"SubjectsContainer2D": ""
 }
 
 [application]

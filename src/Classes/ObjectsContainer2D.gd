@@ -8,7 +8,6 @@ class_name ObjectsContainer2D
 
 
 func _init(objects: Array)->void:
-	._init()
 	add_objects(objects)
 
 
@@ -45,8 +44,10 @@ func add_static_object(object: Dictionary)->void:
 	
 	var _Object = StaticObject2D.new(object)
 	
-	var _StaticObjectsContainer = get_node("StaticObjects")
-	if !_StaticObjectsContainer:
+	var _StaticObjectsContainer
+	if has_node("StaticObjects"):
+		_StaticObjectsContainer = get_node("StaticObjects")
+	else:
 		_StaticObjectsContainer = YSort.new()
 		_StaticObjectsContainer.name = "Static Objects"
 		add_child(_StaticObjectsContainer)

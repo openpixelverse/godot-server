@@ -8,7 +8,6 @@ class_name OpenPixelverseWorld2D
 
 
 func _init(data: Dictionary)->void:
-	._init()
 	setup_world(data)
 
 
@@ -21,6 +20,7 @@ func _init(data: Dictionary)->void:
 func setup_world(data: Dictionary)->void:
 	setup_limits(data)
 	setup_objects(data)
+	setup_subjects(data)
 
 
 # Setup the world limits from data.
@@ -32,11 +32,16 @@ func setup_limits(data: Dictionary)->void:
 		assert(data.limits.has("bottom"), "[OpenPixelverseWorld2D] No bottom limit provided in world limits.")
 		assert(data.limits.has("left"), "[OpenPixelverseWorld2D] No left limit provided in world limits.")
 		assert(data.limits.has("right"), "[OpenPixelverseWorld2D] No right limit provided in world limits.")
+		# Create container node for limits.
+		var _Limits = Node2D.new()
+		_Limits.name = "Limits"
 		# Setup the world limits.
-		add_child(build_border("Border Top", Vector2(data.limits.right, 1), Vector2(0, -2)))
-		add_child(build_border("Border Right", Vector2(1, data.limits.bottom), Vector2(data.limits.right + 2, 0)))
-		add_child(build_border("Border Bottom", Vector2(data.limits.right, 1), Vector2(0, data.limits.bottom + 2)))
-		add_child(build_border("Border Left", Vector2(1, data.limits.bottom), Vector2(-2, 0)))
+		_Limits.add_child(build_border("Border Top", Vector2(data.limits.right, 1), Vector2(0, -2)))
+		_Limits.add_child(build_border("Border Right", Vector2(1, data.limits.bottom), Vector2(data.limits.right + 2, 0)))
+		_Limits.add_child(build_border("Border Bottom", Vector2(data.limits.right, 1), Vector2(0, data.limits.bottom + 2)))
+		_Limits.add_child(build_border("Border Left", Vector2(1, data.limits.bottom), Vector2(-2, 0)))
+		# Add the container node as child node of the world.
+		add_child(_Limits)
 
 
 # Build border from data.
@@ -59,3 +64,12 @@ func setup_objects(data: Dictionary)->void:
 		var _Objects = ObjectsContainer2D.new(data.objects)
 		_Objects.name = "Objects"
 		add_child(_Objects)
+
+
+# Setup subjects node and all it's children.
+func setup_subjects(data: Dictionary)->void:
+	if data.has("subjects"):
+		pass
+		var _Subjects = SubjectsContainer2D.new(data.subjects)
+		_Subjects.name = "Subjects"
+		add_child(_Subjects)

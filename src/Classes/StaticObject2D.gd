@@ -26,7 +26,6 @@ var scale_factor : float = 1
 
 
 func _init(object: Dictionary)->void:
-	._init()
 	setup_object(object)
 
 
