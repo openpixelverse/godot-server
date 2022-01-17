@@ -3,12 +3,25 @@ class_name OpenPixelverseWorld2D
 
 
 ########################################################
+# Variables                                            #
+########################################################
+
+
+var _ObjectsContainer = ObjectsContainer2D
+var _SubjectsContainer = SubjectsContainer2D
+
+
+########################################################
 # Hooks                                                #
 ########################################################
 
 
 func _init(data: Dictionary)->void:
 	setup_world(data)
+
+
+func _physics_process(delta):
+	send_world_state()
 
 
 ########################################################
@@ -64,6 +77,7 @@ func setup_objects(data: Dictionary)->void:
 		var _Objects = ObjectsContainer2D.new(data.objects)
 		_Objects.name = "Objects"
 		add_child(_Objects)
+		_ObjectsContainer = _Objects
 
 
 # Setup subjects node and all it's children.
@@ -73,3 +87,25 @@ func setup_subjects(data: Dictionary)->void:
 		var _Subjects = SubjectsContainer2D.new(data.subjects)
 		_Subjects.name = "Subjects"
 		add_child(_Subjects)
+		_SubjectsContainer = _Subjects
+
+
+########################################################
+# Methods                                              #
+########################################################
+
+
+func send_world_state()->void:
+	var world_state = {
+		"time": OS.get_system_time_msecs(),
+		"objects": get_objects_state(),
+		"subjects": get_subjects_state(),
+	}
+
+
+func get_objects_state()->Dictionary:
+	return _ObjectsContainer.get_objects_state()
+
+
+func get_subjects_state()->Dictionary:
+	return _SubjectsContainer.get_subjects_state()

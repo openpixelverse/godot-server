@@ -16,9 +16,6 @@ var state : String = DEFAULT
 # Stats
 var stats : Dictionary
 
-# Scale factor
-var scale_factor : float = 1
-
 
 ########################################################
 # Hooks                                                #
@@ -37,9 +34,9 @@ func _init(object: Dictionary)->void:
 # Setup the object instance.
 func setup_object(object: Dictionary)->void:
 	setup_name(object)
-	setup_scale_factor(object)
 	setup_collision_shape(object)
 	setup_position(object)
+	setup_scale_factor(object)
 
 
 # Setup the name of this object.
@@ -51,15 +48,13 @@ func setup_name(data: Dictionary)->void:
 # Setup the collision shape of this object.
 func setup_collision_shape(data: Dictionary)->void:
 	if data.has("collision_shape"):
-		var _CollisionShape = Builder.build_collision_shape(data.collision_shape, scale_factor)
-		_CollisionShape.name = "CollisionShape"
-		add_child(_CollisionShape)
+		Builder2D.add_collision_shape(self, data.collision_shape)
 
 
 # Setup the scale_factor for the object.
 func setup_scale_factor(data: Dictionary)->void:
 	if data.has("scale_factor"):
-		scale_factor = data.scale_factor
+		set_scale(Vector2(data.scale_factor, data.scale_factor))
 
 
 # Setup the position of the object.

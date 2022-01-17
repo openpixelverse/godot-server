@@ -85,7 +85,9 @@ func setup_enemy(data: Dictionary)->void:
 
 # Spawn another enemy.
 func spawn_enemy()->void:
-	if get_child_count() < max_enemies:
+	var child_count = get_child_count() - 1
+	if child_count < max_enemies:
 		var enemy_data = OpenPixelverseAPI.load_enemy_data(enemy_type)
 		var _Enemy = Enemy2D.new(enemy_data)
-#		add_child(_Enemy)
+		_Enemy.position = position
+		add_child(_Enemy)

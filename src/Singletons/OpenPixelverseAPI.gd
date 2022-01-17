@@ -83,7 +83,7 @@ func load_world_data(world: String)->Dictionary:
 						},
 						"enemy": {
 							"type": "Rat_Brown",
-							"amount": 3
+							"amount": 1
 						}
 					},
 					{
@@ -469,12 +469,25 @@ func load_enemy_data(subject: String)->Dictionary:
 	
 	return {
 		"name": "Rat",
+		"start_state": "idle",
+		"scale_factor": {
+			"type": "random",
+			"options": {
+				"min": 2,
+				"max": 4,
+			},
+		},
 		"states": [
 			"idle",
-#			"wander",
+			"wander",
 #			"chase",
 #			"dead"
 		],
+		"stats": {
+			"speed": 1,
+			"friction": 1,
+			"acceleration": 1,
+		},
 		"sprite": {
 			"type": "png",
 			"data": base64_sprite,
@@ -482,4 +495,394 @@ func load_enemy_data(subject: String)->Dictionary:
 			"vframes": 1,
 			"frame": 0,
 		},
+		"collision_shape": {
+			"type": "circle",
+			"radius": 4,
+			"position": {
+				"x": 0,
+				"y": 0
+			}
+		},
+		"player_detection_zone": {
+			"radius": 48,
+		},
+		"animations": {
+			"idle_up": {
+				"length": 0.1,
+				"keys": [
+					{
+						"position": 0.1,
+						"frame": 2
+					}
+				]
+			},
+			"idle_up_right": {
+				"length": 0.1,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 8-1
+					}
+				]
+			},
+			"idle_right": {
+				"length": 0.1,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 13-1
+					}
+				]
+			},
+			"idle_right_down": {
+				"length": 0.1,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 18-1
+					}
+				]
+			},
+			"idle_down": {
+				"length": 0.1,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 23-1
+					}
+				]
+			},
+			"idle_down_left": {
+				"length": 0.1,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 28-1
+					}
+				]
+			},
+			"idle_left": {
+				"length": 0.1,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 33-1
+					}
+				]
+			},
+			"idle_left_up": {
+				"length": 0.1,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 38-1
+					}
+				]
+			},
+			"move_up": {
+				"length": 0.5,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 0
+					},
+					{
+						"position": 0.1,
+						"frame": 1
+					},
+					{
+						"position": 0.2,
+						"frame": 2
+					},
+					{
+						"position": 0.3,
+						"frame": 3
+					},
+					{
+						"position": 0.4,
+						"frame": 4
+					}
+				]
+			},
+			"move_up_right": {
+				"length": 0.5,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 5
+					},
+					{
+						"position": 0.1,
+						"frame": 6
+					},
+					{
+						"position": 0.2,
+						"frame": 7
+					},
+					{
+						"position": 0.3,
+						"frame": 8
+					},
+					{
+						"position": 0.4,
+						"frame": 9
+					}
+				]
+			},
+			"move_right": {
+				"length": 0.5,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 10
+					},
+					{
+						"position": 0.1,
+						"frame": 11
+					},
+					{
+						"position": 0.2,
+						"frame": 12
+					},
+					{
+						"position": 0.3,
+						"frame": 13
+					},
+					{
+						"position": 0.4,
+						"frame": 14
+					}
+				]
+			},
+			"move_right_down": {
+				"length": 0.5,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 15
+					},
+					{
+						"position": 0.1,
+						"frame": 16
+					},
+					{
+						"position": 0.2,
+						"frame": 17
+					},
+					{
+						"position": 0.3,
+						"frame": 18
+					},
+					{
+						"position": 0.4,
+						"frame": 19
+					}
+				]
+			},
+			"move_down": {
+				"length": 0.5,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 20
+					},
+					{
+						"position": 0.1,
+						"frame": 21
+					},
+					{
+						"position": 0.2,
+						"frame": 22
+					},
+					{
+						"position": 0.3,
+						"frame": 23
+					},
+					{
+						"position": 0.4,
+						"frame": 24
+					}
+				]
+			},
+			"move_down_left": {
+				"length": 0.5,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 25
+					},
+					{
+						"position": 0.1,
+						"frame": 26
+					},
+					{
+						"position": 0.2,
+						"frame": 27
+					},
+					{
+						"position": 0.3,
+						"frame": 28
+					},
+					{
+						"position": 0.4,
+						"frame": 29
+					}
+				]
+			},
+			"move_left": {
+				"length": 0.5,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 30
+					},
+					{
+						"position": 0.1,
+						"frame": 31
+					},
+					{
+						"position": 0.2,
+						"frame": 32
+					},
+					{
+						"position": 0.3,
+						"frame": 33
+					},
+					{
+						"position": 0.4,
+						"frame": 34
+					}
+				]
+			},
+			"move_left_up": {
+				"length": 0.5,
+				"keys": [
+					{
+						"position": 0.0,
+						"frame": 35
+					},
+					{
+						"position": 0.1,
+						"frame": 36
+					},
+					{
+						"position": 0.2,
+						"frame": 37
+					},
+					{
+						"position": 0.3,
+						"frame": 38
+					},
+					{
+						"position": 0.4,
+						"frame": 39
+					}
+				]
+			},
+		},
+		"animation_tree": {
+			"nodes": [
+				{
+					"name": "Idle",
+					"start": true,
+					"blend_points": [
+						{
+							"animation": "idle_left",
+							"x": -1,
+							"y": 0
+						},
+						{
+							"animation": "idle_left_up",
+							"x": -1,
+							"y": -1
+						},
+						{
+							"animation": "idle_up",
+							"x": 0,
+							"y": -1
+						},
+						{
+							"animation": "idle_up_right",
+							"x": 1,
+							"y": -1
+						},
+						{
+							"animation": "idle_right",
+							"x": 1,
+							"y": 0
+						},
+						{
+							"animation": "idle_right_down",
+							"x": 1,
+							"y": 1
+						},
+						{
+							"animation": "idle_down",
+							"x": 0,
+							"y": 1
+						},
+						{
+							"animation": "idle_down_left",
+							"x": -1,
+							"y": 1
+						},
+					]
+				},
+				{
+					"name": "Move",
+					"blend_points": [
+						{
+							"animation": "move_left",
+							"x": -1,
+							"y": 0
+						},
+						{
+							"animation": "move_left_up",
+							"x": -1,
+							"y": -1
+						},
+						{
+							"animation": "move_up",
+							"x": 0,
+							"y": -1
+						},
+						{
+							"animation": "move_up_right",
+							"x": 1,
+							"y": -1
+						},
+						{
+							"animation": "move_right",
+							"x": 1,
+							"y": 0
+						},
+						{
+							"animation": "move_right_down",
+							"x": 1,
+							"y": 1
+						},
+						{
+							"animation": "move_down",
+							"x": 0,
+							"y": 1
+						},
+						{
+							"animation": "move_down_left",
+							"x": -1,
+							"y": 1
+						},
+					]
+				}
+			],
+			"transitions": [
+				{
+					"from": "Idle",
+					"to": "Move"
+				},
+				{
+					"from": "Move",
+					"to": "Idle"
+				}
+			]
+		}
 	}
