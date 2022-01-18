@@ -47,9 +47,6 @@ func setup_connection()->void:
 	# warning-ignore:return_value_discarded
 	_WebSocketServer.connect("peer_disconnected", self, "_on_peer_disconnected")
 	
-	# print some success message for debugging
-	print("Client connections enabled!")
-	
 	
 # Setup the game world.
 func setup_world()->void:
@@ -59,7 +56,7 @@ func setup_world()->void:
 	# Validate type.
 	assert(world_data.has("type"), "[Server] No type in world data.")
 	
-	# Create container variable for response.
+	# Create container variable for world node.
 	var _World
 	
 	# Match the type.

@@ -91,3 +91,15 @@ func spawn_enemy()->void:
 		var _Enemy = Enemy2D.new(enemy_data)
 		_Enemy.position = position
 		add_child(_Enemy)
+
+
+# Get subject states of the enemies spawned by this spawn area.
+func get_subject_states()->Dictionary:
+	var subject_states = {}
+	
+	for _Enemy in get_children():
+		# Only add enemy states (excluding eg. the timer).
+		if _Enemy is Enemy2D:
+			subject_states[_Enemy.name] = _Enemy.get_state()
+	
+	return subject_states

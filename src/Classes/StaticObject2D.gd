@@ -61,3 +61,15 @@ func setup_scale_factor(data: Dictionary)->void:
 func setup_position(data: Dictionary)->void:
 	if data.has("position"):
 		set_position(data.position)
+
+
+########################################################
+# Methods                                              #
+########################################################
+
+
+func get_state()->Dictionary:
+	return {
+		"state": state,
+		"stats": stats,
+	}

@@ -7,8 +7,8 @@ class_name OpenPixelverseWorld2D
 ########################################################
 
 
-var _ObjectsContainer = ObjectsContainer2D
-var _SubjectsContainer = SubjectsContainer2D
+var _ObjectsContainer : ObjectsContainer2D
+var _SubjectsContainer : SubjectsContainer2D
 
 
 ########################################################
@@ -74,10 +74,9 @@ func build_border(name: String, extents: Vector2, position: Vector2)->StaticBody
 # Setup the objects node and all it's childs.
 func setup_objects(data: Dictionary)->void:
 	if data.has("objects") and data.objects.size():
-		var _Objects = ObjectsContainer2D.new(data.objects)
-		_Objects.name = "Objects"
-		add_child(_Objects)
-		_ObjectsContainer = _Objects
+		_ObjectsContainer = ObjectsContainer2D.new(data.objects)
+		_ObjectsContainer.name = "Objects"
+		add_child(_ObjectsContainer)
 
 
 # Setup subjects node and all it's children.
@@ -98,14 +97,15 @@ func setup_subjects(data: Dictionary)->void:
 func send_world_state()->void:
 	var world_state = {
 		"time": OS.get_system_time_msecs(),
-		"objects": get_objects_state(),
-		"subjects": get_subjects_state(),
+		"objects": get_objects_container_state(),
+		"subjects": get_subjects_container_states(),
 	}
+	Router.send_world_state(world_state)
 
 
-func get_objects_state()->Dictionary:
-	return _ObjectsContainer.get_objects_state()
+func get_objects_container_state()->Dictionary:
+	return _ObjectsContainer.get_object_states()
 
 
-func get_subjects_state()->Dictionary:
-	return _SubjectsContainer.get_subjects_state()
+func get_subjects_container_states()->Dictionary:
+	return _SubjectsContainer.get_subject_states()
