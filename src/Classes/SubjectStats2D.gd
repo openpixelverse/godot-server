@@ -66,3 +66,12 @@ func set_speed(new_speed : int)->void:
 
 func set_acceleration(new_acceleration : int)->void:
 	acceleration = new_acceleration * 500
+
+
+func to_dict()->Dictionary:
+	var properties = {}
+	
+	for property in get_script().get_property_list():
+		properties[property.name] = get(property.name)
+	
+	return properties

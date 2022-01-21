@@ -70,6 +70,8 @@ func setup_position(data: Dictionary)->void:
 
 func get_state()->Dictionary:
 	return {
+		"name": name,
 		"state": state,
 		"stats": stats,
+		"position": global_position,
 	}

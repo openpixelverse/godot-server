@@ -67,7 +67,11 @@ func get_object_states()->Dictionary:
 	var object_states = {}
 	
 	if _StaticObjectsContainer:
+		if not object_states.has("static"):
+			object_states["static"] = {}
 		for _Object in _StaticObjectsContainer.get_children():
-			object_states["static"] = _Object.get_state()
+			var object_state = _Object.get_state()
+			object_states["static"][object_state.name] = object_state
+#			object_states["static"].push_back(_Object.get_state())
 		
 	return object_states

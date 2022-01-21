@@ -31,6 +31,6 @@ func setup_states(data: Dictionary)->void:
 func get_state()->Dictionary:
 	return {
 #		"state": state,
-		"stats": stats,
+		"stats": stats.to_dict(),
 		"position": global_position
 	}
