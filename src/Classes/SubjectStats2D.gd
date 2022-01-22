@@ -69,9 +69,8 @@ func set_acceleration(new_acceleration : int)->void:
 
 
 func to_dict()->Dictionary:
-	var properties = {}
-	
-	for property in get_script().get_property_list():
-		properties[property.name] = get(property.name)
-	
-	return properties
+	return {
+		"friction": friction,
+		"speed": speed,
+		"acceleration": acceleration,
+	}

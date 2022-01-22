@@ -7,8 +7,10 @@ class_name SpawnArea2D
 ########################################################
 
 
-var enemy_type: String
-var max_enemies: int
+var enemy_type : String
+var max_enemies : int
+var enemy_counter : int = 1 # We start at 1 and count up.
+export var enemy_counter_reset : int = 1000
 
 
 ########################################################
@@ -90,7 +92,18 @@ func spawn_enemy()->void:
 		var enemy_data = OpenPixelverseAPI.load_enemy_data(enemy_type)
 		var _Enemy = Enemy2D.new(enemy_data)
 		_Enemy.position = position
+		
+		# Set the name of this node.
+		var enemy_name = enemy_type + " " + str(enemy_counter) + " (" + name + ")"
+		_Enemy.name = enemy_name
+		
 		add_child(_Enemy)
+		
+		# Update the counter
+		enemy_counter += 1
+		if enemy_counter > enemy_counter_reset:
+			enemy_counter = 1
+			
 
 
 # Get subject states of the enemies spawned by this spawn area.
@@ -103,3 +116,16 @@ func get_subject_states()->Dictionary:
 			subject_states[_Enemy.name] = _Enemy.get_state()
 	
 	return subject_states
+
+
+func get_subject_data(name)->Dictionary:
+	var enemy_data : Dictionary
+	
+	if has_node(name):
+		# TODO: Refactor this to actually load the data from the node.
+		enemy_data = OpenPixelverseAPI.load_enemy_data(name)
+		var _Enemy = get_node(name)
+		enemy_data["scale_factor"] = _Enemy.scale
+		enemy_data["position"] = _Enemy.global_position
+	
+	return enemy_data

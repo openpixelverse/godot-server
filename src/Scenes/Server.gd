@@ -2,6 +2,14 @@ extends Node
 
 
 ########################################################
+# Variables                                            #
+########################################################
+
+
+var _World
+
+
+########################################################
 # Signals                                              #
 ########################################################
 
@@ -56,9 +64,6 @@ func setup_world()->void:
 	# Validate type.
 	assert(world_data.has("type"), "[Server] No type in world data.")
 	
-	# Create container variable for world node.
-	var _World
-	
 	# Match the type.
 	match world_data.type:
 		"2D":
@@ -71,3 +76,8 @@ func setup_world()->void:
 	
 	# Add the world node as child to the server.
 	add_child(_World)
+
+
+# Load initial subject data.
+func load_subject_data(type : String, name : String)->Dictionary:
+	return _World.load_subject_data(type, name)

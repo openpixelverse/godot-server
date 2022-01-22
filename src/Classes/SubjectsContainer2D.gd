@@ -45,3 +45,16 @@ func get_subject_states()->Dictionary:
 		subject_states["enemies"] = _EnemiesContainer.get_subject_states()
 	
 	return subject_states
+
+
+# Get initial subject data for the client.
+func get_subject_data(type : String, name : String)->Dictionary:
+	var data : Dictionary
+	match type:
+		"player":
+			assert(false, "[SubjectsContainer2D] Subjects of type 'player' are not yet implemented.")
+		"enemy":
+			data = _EnemiesContainer.get_subject_data(name)
+		_:
+			assert(false, "[SubjectsContainer2D] Subjects of type '" + type + "' are not yet implemented.")
+	return data

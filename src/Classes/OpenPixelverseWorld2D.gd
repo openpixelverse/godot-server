@@ -109,3 +109,8 @@ func get_objects_container_state()->Dictionary:
 
 func get_subjects_container_states()->Dictionary:
 	return _SubjectsContainer.get_subject_states()
+
+
+# Load initial subject data for the client.
+func load_subject_data(type: String, name : String)->Dictionary:
+	return _SubjectsContainer.get_subject_data(type, name)

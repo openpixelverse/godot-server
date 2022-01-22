@@ -34,7 +34,15 @@ func get_subject_states()->Dictionary:
 	
 	for _SpawnArea in get_children():
 		var enemy_states = _SpawnArea.get_subject_states()
-		for enemy_state_name in enemy_states:
-			subject_states[enemy_state_name] = enemy_states[enemy_state_name]
+		for enemy_name in enemy_states:
+			subject_states[enemy_name] = enemy_states[enemy_name]
 	
 	return subject_states
+
+
+func get_subject_data(name : String)->Dictionary:
+	var enemy_data : Dictionary
+	for _SpawnArea in get_children():
+		if _SpawnArea.has_node(name):
+			enemy_data = _SpawnArea.get_subject_data(name)
+	return enemy_data

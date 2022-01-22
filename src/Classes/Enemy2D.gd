@@ -30,7 +30,7 @@ func setup_states(data: Dictionary)->void:
 # Get the state of the enemy in order to use it for the world state.
 func get_state()->Dictionary:
 	return {
-#		"state": state,
+		"name": name,
 		"stats": stats.to_dict(),
 		"position": global_position
 	}

@@ -47,3 +47,14 @@ remote func load_world_data(world : String)->void:
 # Send the world state to all peers.
 func send_world_state(world_state : Dictionary)->void:
 	rpc_unreliable_id(0, "receive_world_state", world_state)
+
+
+########################################################
+# Subjects
+
+
+# Load initial subject data.
+remote func load_subject_data(type : String, name : String)->void:
+	var data = _Server.load_subject_data(type, name)
+	rpc_id(get_tree().get_rpc_sender_id(), "receive_subject_data", type, name, data)
+	print("receive_subject_data")
