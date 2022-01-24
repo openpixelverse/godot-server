@@ -24,6 +24,7 @@ var _CurrentState : State2D
 
 
 signal state_changed(new_state)
+signal update_direction(new_direction)
 
 
 ########################################################
@@ -57,6 +58,11 @@ func _physics_process(delta)->void:
 		_CurrentState.update(delta)
 
 
+# Called whenever the state sends a direction.
+func _on_update_direction(new_direction : Vector2)->void:
+	update_direction(new_direction)
+
+
 ########################################################
 # Setup                                                #
 ########################################################
@@ -86,6 +92,7 @@ func setup_state(state: String)->void:
 	
 	state_map[state] = _State
 	add_child(_State)
+	_State.connect("update_direction", self, "_on_update_direction")
 	_State.connect("finished", self, "_on_change_state")
 
 
@@ -129,13 +136,19 @@ func change_state(new_state: String)->void:
 		state_stack[0] = state_map[new_state]
 	
 	_CurrentState = state_stack[0]
-	emit_signal("state_changed", _CurrentState) # TODO: check if we actually need this currently.
 	
 	if new_state != "previous":
 		_CurrentState.enter()
+	
+	emit_signal("state_changed", new_state)
 
 
 # Validate in incoming state against the state map.
 func validate_new_state(new_state: String)->void:
 	if !state_map.has(new_state):
 		assert(false, "[StateMachine2D] The given new state '" + new_state + "' is not available.")
+
+
+# Update the direction of the subject.
+func update_direction(new_direction : Vector2)->void:
+	emit_signal("update_direction", new_direction)

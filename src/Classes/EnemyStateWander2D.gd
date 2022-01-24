@@ -11,6 +11,8 @@ var WANDER_RANGE : int = 200
 
 var target_position : Vector2
 
+var target_directon : Vector2
+
 
 ########################################################
 # Hooks                                                #
@@ -72,3 +74,6 @@ func update(delta):
 	# If the velocity is (0, 0) we can go back to the idle state.
 	if _Target.velocity == Vector2.ZERO:
 		emit_signal("finished", "idle")
+	
+	# Send new direction to everyone listening.
+	emit_signal("update_direction", direction)

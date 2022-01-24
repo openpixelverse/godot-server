@@ -8,6 +8,8 @@ class_name Subject2D
 
 var _States : StateMachine2D
 
+var current_state : String
+
 var stats : SubjectStats2D
 
 var direction : Vector2
@@ -22,6 +24,14 @@ var velocity : Vector2
 
 func _init(data: Dictionary)->void:
 	setup_subject(data)
+
+
+func _on_state_changed(new_state : String)->void:
+	change_state(new_state)
+
+
+func _on_update_direction(new_direction : Vector2)->void:
+	update_direction(new_direction)
 
 
 ########################################################
@@ -54,6 +64,8 @@ func setup_states(data: Dictionary)->void:
 		_States = StateMachine2D.new(self, data.states, start_state)
 		_States.name = "States"
 		add_child(_States)
+		_States.connect("state_changed", self, "_on_state_changed")
+		_States.connect("update_direction", self, "_on_update_direction")
 
 
 # Setup scale factor.
@@ -86,3 +98,16 @@ func setup_direction(data: Dictionary)->void:
 func setup_collision_shape(data: Dictionary)->void:
 	if data.has("collision_shape"):
 		Builder2D.add_collision_shape(self, data.collision_shape)
+
+
+########################################################
+# Methods                                              #
+########################################################
+
+
+func change_state(new_state : String)->void:
+	current_state = new_state
+
+
+func update_direction(new_direction : Vector2)->void:
+	direction = new_direction

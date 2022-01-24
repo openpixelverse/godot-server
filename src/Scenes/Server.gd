@@ -37,7 +37,7 @@ func setup_server()->void:
 
 # Setup the websocket server to enable client connections.
 func setup_connection()->void:
-	# Setup game server.
+	# Setup game server.^^
 	var _WebSocketServer = WebSocketServer.new()
 	# - We only need the ssl certificates if we are on a
 	#    relevant environment.

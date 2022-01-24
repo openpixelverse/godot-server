@@ -25,12 +25,20 @@ func setup_states(data: Dictionary)->void:
 		_States = EnemyStateMachine2D.new(self, data.states, start_state)
 		_States.name = "States"
 		add_child(_States)
+		_States.connect("state_changed", self, "_on_state_changed")
+		_States.connect("update_direction", self, "_on_update_direction")
 
 
 # Get the state of the enemy in order to use it for the world state.
 func get_state()->Dictionary:
-	return {
+	var state_data = {
 		"name": name,
 		"stats": stats.to_dict(),
-		"position": global_position
+		"position": global_position,
+		"direction": direction,
 	}
+	
+	if current_state:
+		state_data["state"] = current_state
+	
+	return state_data

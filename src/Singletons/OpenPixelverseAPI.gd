@@ -778,7 +778,7 @@ TkSuQmCC"""
 		"animation_tree": {
 			"nodes": [
 				{
-					"name": "Idle",
+					"name": "idle",
 					"start": true,
 					"blend_points": [
 						{
@@ -824,7 +824,7 @@ TkSuQmCC"""
 					]
 				},
 				{
-					"name": "Move",
+					"name": "move",
 					"blend_points": [
 						{
 							"animation": "move_left",
@@ -871,12 +871,12 @@ TkSuQmCC"""
 			],
 			"transitions": [
 				{
-					"from": "Idle",
-					"to": "Move"
+					"from": "idle",
+					"to": "move"
 				},
 				{
-					"from": "Move",
-					"to": "Idle"
+					"from": "move",
+					"to": "idle"
 				}
 			]
 		}

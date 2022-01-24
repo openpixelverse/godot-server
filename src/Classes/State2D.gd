@@ -16,6 +16,7 @@ var _Target : Node2D setget set_target
 
 
 signal finished(new_state)
+signal update_direction(new_direction)
 
 
 ########################################################

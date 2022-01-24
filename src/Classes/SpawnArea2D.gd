@@ -94,7 +94,7 @@ func spawn_enemy()->void:
 		_Enemy.position = position
 		
 		# Set the name of this node.
-		var enemy_name = enemy_type + " " + str(enemy_counter) + " (" + name + ")"
+		var enemy_name = "[E " + str(enemy_counter) + "][" + name + "] " + enemy_type
 		_Enemy.name = enemy_name
 		
 		add_child(_Enemy)
