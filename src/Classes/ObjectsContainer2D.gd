@@ -3,6 +3,14 @@ class_name ObjectsContainer2D
 
 
 ########################################################
+# Signals                                              #
+########################################################
+
+
+signal subtract_polygon_from_navigation_area(polygon)
+
+
+########################################################
 # Hooks                                                #
 ########################################################
 
@@ -17,6 +25,10 @@ var _StaticObjectsContainer : YSort
 
 func _init(objects: Array)->void:
 	setup_objects(objects)
+
+
+func _on_subtract_polygon_from_navigation_area(polygon : PoolVector2Array)->void:
+	emit_signal("subtract_polygon_from_navigation_area", polygon)
 
 
 ########################################################
@@ -51,6 +63,8 @@ func add_static_object(object: Dictionary)->void:
 	assert(object.has("type") and object.type == "static", "[ObjectsContainer2D] Object type provided is not 'static'.")
 	
 	var _Object = StaticObject2D.new(object)
+	
+	_Object.connect("subtract_polygon_of_object_from_navigation_area", self, "_on_subtract_polygon_from_navigation_area")
 	
 	if _StaticObjectsContainer:
 		_StaticObjectsContainer = get_node("StaticObjects")

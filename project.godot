@@ -130,6 +130,7 @@ OpenPixelverseAPI="*res://src/Singletons/OpenPixelverseAPI.gd"
 
 window/size/test_width=1024
 window/size/test_height=600
+window/stretch/shrink=0.2
 
 [importer_defaults]
 

@@ -33,16 +33,8 @@ func _on_reset_navigation_area()->void:
 	setup_navigation_area()
 
 
-func _on_subtract_polygon_from_navigation_area(polygon_to_subtract : CollisionPolygon2D)->void:
-	var new_polygon = PoolVector2Array()
-	var _NavigationPolygon = _NavigationPolygonInstance.get_navigation_polygon()
-	var polygon_transform = polygon_to_subtract.get_global_transform()
-	var polygon = polygon_to_subtract.get_polygon()
-	for vertext in polygon:
-		new_polygon.append(polygon_transform.xform(vertext))
-	_NavigationPolygon.add_outline(new_polygon)
-	_NavigationPolygon.make_polygons_from_outlines()
-	_NavigationPolygonInstance.set_navigation_polygon(_NavigationPolygon)
+func _on_subtract_polygon_from_navigation_area(polygon_to_subtract : PoolVector2Array)->void:
+	subtract_polygon_from_navigation_area(polygon_to_subtract)
 
 
 ########################################################
@@ -95,6 +87,7 @@ func setup_objects(data: Dictionary)->void:
 		_ObjectsContainer = ObjectsContainer2D.new(data.objects)
 		_ObjectsContainer.name = "Objects"
 		add_child(_ObjectsContainer)
+		_ObjectsContainer.connect("subtract_polygon_from_navigation_area", self, "_on_subtract_polygon_from_navigation_area")
 
 
 # Setup subjects node and all it's children.
@@ -110,17 +103,19 @@ func setup_subjects(data: Dictionary)->void:
 # Setup navigation area of the world.
 func setup_navigation_area()->void:
 	if not world_limits.empty():
+		var safety_space = 50
 		_Navigation = Navigation2D.new()
 		_Navigation.name = "Navigation"
 		_NavigationPolygonInstance = NavigationPolygonInstance.new()
 		_NavigationPolygonInstance.name = "NavigationPolygonInstance"
 		var _WorldPolygon = NavigationPolygon.new()
-		_WorldPolygon.add_outline(PoolVector2Array([
-			Vector2(world_limits.top, world_limits.right),
-			Vector2(world_limits.right, world_limits.bottom),
-			Vector2(world_limits.bottom, world_limits.left),
-			Vector2(world_limits.left, world_limits.top),
-		]))
+		var world_polygon_outline = PoolVector2Array([
+			Vector2(world_limits.left + safety_space, world_limits.top + safety_space),
+			Vector2(world_limits.right - safety_space, world_limits.top + safety_space),
+			Vector2(world_limits.right - safety_space, world_limits.bottom - safety_space),
+			Vector2(world_limits.left + safety_space, world_limits.bottom - safety_space),
+		])
+		_WorldPolygon.add_outline(world_polygon_outline)
 		_WorldPolygon.make_polygons_from_outlines()
 		_NavigationPolygonInstance.navpoly = _WorldPolygon
 		_Navigation.add_child(_NavigationPolygonInstance)
@@ -162,3 +157,13 @@ func get_subjects_container_states()->Dictionary:
 # Load initial subject data for the client.
 func load_subject_data(type: String, name : String)->Dictionary:
 	return _SubjectsContainer.get_subject_data(type, name)
+
+
+# Subtract a given polygon from the navigation area.
+func subtract_polygon_from_navigation_area(polygon_to_subtract : PoolVector2Array)->void:
+	var _NavigationPolygon = _NavigationPolygonInstance.get_navigation_polygon()
+	_NavigationPolygon.add_outline(polygon_to_subtract)
+	_NavigationPolygon.make_polygons_from_outlines()
+	_NavigationPolygonInstance.set_navigation_polygon(_NavigationPolygon)
+	_NavigationPolygonInstance.enabled = false
+	_NavigationPolygonInstance.enabled = true

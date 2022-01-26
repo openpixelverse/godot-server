@@ -81,7 +81,7 @@ R+SXK8D7cf65CU39PP88Jm55COXxuvBTRpHT/TMd/w8BYCLQt+RTXgAAAABJRU5ErkJggg=="""
 						},
 						"enemy": {
 							"type": "Rat_Brown",
-							"amount": 1
+							"amount": 4
 						}
 					},
 					{
@@ -92,7 +92,7 @@ R+SXK8D7cf65CU39PP88Jm55COXxuvBTRpHT/TMd/w8BYCLQt+RTXgAAAABJRU5ErkJggg=="""
 						},
 						"enemy": {
 							"type": "Rat_Brown",
-							"amount": 3
+							"amount": 4
 						}
 					},
 					{
@@ -103,7 +103,7 @@ R+SXK8D7cf65CU39PP88Jm55COXxuvBTRpHT/TMd/w8BYCLQt+RTXgAAAABJRU5ErkJggg=="""
 						},
 						"enemy": {
 							"type": "Rat_Brown",
-							"amount": 3
+							"amount": 4
 						}
 					},
 					{
@@ -114,7 +114,7 @@ R+SXK8D7cf65CU39PP88Jm55COXxuvBTRpHT/TMd/w8BYCLQt+RTXgAAAABJRU5ErkJggg=="""
 						},
 						"enemy": {
 							"type": "Rat_Brown",
-							"amount": 3
+							"amount": 4
 						}
 					},
 				],
@@ -168,7 +168,7 @@ MxmkdtbzyvKOYPefiIv/scm/lnIZ3MsnOh4AAAAASUVORK5CYII="""
 	return {
 		"name": "Information Booth",
 		"type": "static",
-		"position": Vector2(700, 200),
+		"position": Vector2(700, 300),
 		"scale_factor": 4,
 		"collision_shape": {
 			"type": "rectangle",
