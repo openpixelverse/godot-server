@@ -13,6 +13,10 @@ var target_position : Vector2
 
 var target_directon : Vector2
 
+var target_path : PoolVector2Array
+
+var _Line2D : Line2D
+
 
 ########################################################
 # Hooks                                                #
@@ -28,12 +32,21 @@ func _init(target: Node2D).(target):
 ########################################################
 
 func setup_target_position()->void:
-	randomize()
 	var target_vector = Vector2(
 		rand_range(-WANDER_RANGE, WANDER_RANGE),
 		rand_range(-WANDER_RANGE, WANDER_RANGE)
 	)
 	target_position = _Target.global_position + target_vector
+
+
+func setup_target_path()->void:
+	var _Navigation = get_node("/root/Server/World/Navigation")
+	target_path = _Navigation.get_simple_path(_Target.global_position, target_position, false)
+	
+	# For debugging.
+	_Line2D = Line2D.new()
+	_Line2D.points = target_path
+	add_child(_Line2D)
 
 
 ########################################################
@@ -42,13 +55,23 @@ func setup_target_position()->void:
 
 
 func enter():
+	randomize()
 	setup_target_position()
+	setup_target_path()
 
 
 func update(delta):
-	var direction = _Target.global_position.direction_to(target_position)
+	var next_position = target_position
+		
+	var direction = _Target.global_position.direction_to(next_position)
 	
-	var distance = _Target.global_position.distance_to(target_position)
+	if target_path.size() > 1:
+		direction = _Target.global_position.direction_to(target_path[1])
+	
+	if _Target.global_position == target_path[0]:
+		target_path.remove(0)
+	
+	var distance = _Target.global_position.distance_to(next_position)
 	
 	# Continue to move forward if the location is far enough away.
 	if distance > 30:

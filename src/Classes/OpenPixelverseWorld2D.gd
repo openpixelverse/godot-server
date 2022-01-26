@@ -7,8 +7,12 @@ class_name OpenPixelverseWorld2D
 ########################################################
 
 
+var world_limits : Dictionary setget set_world_limits
+
 var _ObjectsContainer : ObjectsContainer2D
 var _SubjectsContainer : SubjectsContainer2D
+var _Navigation : Navigation2D
+var _NavigationPolygonInstance : NavigationPolygonInstance
 
 
 ########################################################
@@ -20,8 +24,25 @@ func _init(data: Dictionary)->void:
 	setup_world(data)
 
 
-func _physics_process(delta):
+func _physics_process(delta)->void:
 	send_world_state()
+
+
+func _on_reset_navigation_area()->void:
+	_Navigation.queue_free()
+	setup_navigation_area()
+
+
+func _on_subtract_polygon_from_navigation_area(polygon_to_subtract : CollisionPolygon2D)->void:
+	var new_polygon = PoolVector2Array()
+	var _NavigationPolygon = _NavigationPolygonInstance.get_navigation_polygon()
+	var polygon_transform = polygon_to_subtract.get_global_transform()
+	var polygon = polygon_to_subtract.get_polygon()
+	for vertext in polygon:
+		new_polygon.append(polygon_transform.xform(vertext))
+	_NavigationPolygon.add_outline(new_polygon)
+	_NavigationPolygon.make_polygons_from_outlines()
+	_NavigationPolygonInstance.set_navigation_polygon(_NavigationPolygon)
 
 
 ########################################################
@@ -31,20 +52,17 @@ func _physics_process(delta):
 
 # Setup the world instance.
 func setup_world(data: Dictionary)->void:
-	setup_limits(data)
+	setup_world_limits(data)
 	setup_objects(data)
 	setup_subjects(data)
+	setup_navigation_area()
 
 
 # Setup the world limits from data.
-func setup_limits(data: Dictionary)->void:
+func setup_world_limits(data: Dictionary)->void:
 	# Only proceed if we got data for the limits.
 	if data.has("limits"):
-		# Validate world limits.
-		assert(data.limits.has("top"), "[OpenPixelverseWorld2D] No top limit provided in world limits.")
-		assert(data.limits.has("bottom"), "[OpenPixelverseWorld2D] No bottom limit provided in world limits.")
-		assert(data.limits.has("left"), "[OpenPixelverseWorld2D] No left limit provided in world limits.")
-		assert(data.limits.has("right"), "[OpenPixelverseWorld2D] No right limit provided in world limits.")
+		set_world_limits(data.limits)
 		# Create container node for limits.
 		var _Limits = Node2D.new()
 		_Limits.name = "Limits"
@@ -89,9 +107,39 @@ func setup_subjects(data: Dictionary)->void:
 		_SubjectsContainer = _Subjects
 
 
+# Setup navigation area of the world.
+func setup_navigation_area()->void:
+	if not world_limits.empty():
+		_Navigation = Navigation2D.new()
+		_Navigation.name = "Navigation"
+		_NavigationPolygonInstance = NavigationPolygonInstance.new()
+		_NavigationPolygonInstance.name = "NavigationPolygonInstance"
+		var _WorldPolygon = NavigationPolygon.new()
+		_WorldPolygon.add_outline(PoolVector2Array([
+			Vector2(world_limits.top, world_limits.right),
+			Vector2(world_limits.right, world_limits.bottom),
+			Vector2(world_limits.bottom, world_limits.left),
+			Vector2(world_limits.left, world_limits.top),
+		]))
+		_WorldPolygon.make_polygons_from_outlines()
+		_NavigationPolygonInstance.navpoly = _WorldPolygon
+		_Navigation.add_child(_NavigationPolygonInstance)
+		add_child(_Navigation)
+
+
 ########################################################
 # Methods                                              #
 ########################################################
+
+
+func set_world_limits(limits : Dictionary)->void:
+	# Validate world limits.
+	assert(limits.has("top"), "[OpenPixelverseWorld2D] No top limit provided in world limits.")
+	assert(limits.has("bottom"), "[OpenPixelverseWorld2D] No bottom limit provided in world limits.")
+	assert(limits.has("left"), "[OpenPixelverseWorld2D] No left limit provided in world limits.")
+	assert(limits.has("right"), "[OpenPixelverseWorld2D] No right limit provided in world limits.")
+	# Save the world limits
+	world_limits = limits
 
 
 func send_world_state()->void:

@@ -98,6 +98,8 @@ func setup_direction(data: Dictionary)->void:
 func setup_collision_shape(data: Dictionary)->void:
 	if data.has("collision_shape"):
 		Builder2D.add_collision_shape(self, data.collision_shape)
+#		var _CollisionShape = Builder2D.build_collision_shape(data.collision_shape)
+#		var _CollisionPolygon = _CollisionShape.get_polygon
 
 
 ########################################################
