@@ -25,7 +25,9 @@ func setup_states(data: Dictionary)->void:
 		_States = EnemyStateMachine2D.new(self, data.states, start_state)
 		_States.name = "States"
 		add_child(_States)
+		# warning-ignore:return_value_discarded
 		_States.connect("state_changed", self, "_on_state_changed")
+		# warning-ignore:return_value_discarded
 		_States.connect("update_direction", self, "_on_update_direction")
 
 

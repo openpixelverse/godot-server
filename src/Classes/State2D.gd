@@ -15,7 +15,9 @@ var _Target : Node2D setget set_target
 ########################################################
 
 
+# warning-ignore:unused_signal
 signal finished(new_state)
+# warning-ignore:unused_signal
 signal update_direction(new_direction)
 
 
@@ -29,7 +31,7 @@ func _init(target : Node2D):
 
 
 # Called whenever a connected animation ends.
-func _on_animation_finished(animation_name):
+func _on_animation_finished(_animation_name):
 	return
 
 
@@ -53,10 +55,10 @@ func exit():
 
 
 # Handle user input.
-func handle_input(event):
+func handle_input(_event):
 	return
 
 
 # Update the state.
-func update(delta):
+func update(_delta):
 	return

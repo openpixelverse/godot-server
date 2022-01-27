@@ -33,6 +33,7 @@ func enter():
 	_ActionTimer.name = "ActionTimer"
 	_ActionTimer.wait_time = rand_range(1, 3)
 	_ActionTimer.autostart = true
+	# warning-ignore:return_value_discarded
 	_ActionTimer.connect("timeout", self, "_on_action_timer_timeout")
 	add_child(_ActionTimer)
 

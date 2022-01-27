@@ -24,7 +24,7 @@ func _init(data: Dictionary)->void:
 	setup_world(data)
 
 
-func _physics_process(delta)->void:
+func _physics_process(_delta)->void:
 	send_world_state()
 
 
@@ -87,6 +87,7 @@ func setup_objects(data: Dictionary)->void:
 		_ObjectsContainer = ObjectsContainer2D.new(data.objects)
 		_ObjectsContainer.name = "Objects"
 		add_child(_ObjectsContainer)
+		# warning-ignore:return_value_discarded
 		_ObjectsContainer.connect("subtract_polygon_from_navigation_area", self, "_on_subtract_polygon_from_navigation_area")
 
 
