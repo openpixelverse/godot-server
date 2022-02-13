@@ -24,6 +24,16 @@ func _ready()->void:
 	setup_server()
 
 
+# Called whenever a new peer connects to the server.
+func _on_peer_connected(player_id)->void:
+	print("User " + str(player_id) + " connected")
+	_World.spawn_player(player_id)
+
+# Called whenever a player disconnects from the server
+func _on_peer_disconnected(player_id)->void:
+	print("User " + str(player_id) + " disconnected")
+
+
 ########################################################
 # Methods                                              #
 ########################################################

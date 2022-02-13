@@ -3,6 +3,7 @@ class_name SubjectsContainer2D
 
 
 var _EnemiesContainer : EnemiesContainer2D
+var _PlayersContainer : PlayersContainer2D
 
 
 ########################################################
@@ -22,6 +23,7 @@ func _init(data: Dictionary)->void:
 # Setup the subjects container.
 func setup_subjects(data: Dictionary)->void:
 	setup_enemies(data)
+	setup_players_container(data)
 
 
 # Setup the enemy spawn points and enemies.
@@ -30,6 +32,11 @@ func setup_enemies(data: Dictionary)->void:
 		_EnemiesContainer = EnemiesContainer2D.new(data.enemies)
 		_EnemiesContainer.name = "Enemies"
 		add_child(_EnemiesContainer)
+
+
+# Setup the players container.
+func setup_players(data: Dictionary)->void:
+	_PlayersContainer = PlayersContainer2D.new()
 
 
 ########################################################
@@ -58,3 +65,8 @@ func get_subject_data(type : String, name : String)->Dictionary:
 		_:
 			assert(false, "[SubjectsContainer2D] Subjects of type '" + type + "' are not yet implemented.")
 	return data
+
+
+# Spawn player.
+func spawn_player(player_id)->void:
+	print("[SubjectsContainer] Spawn new player.")

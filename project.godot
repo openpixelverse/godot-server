@@ -55,6 +55,11 @@ _global_script_classes=[ {
 "path": "res://src/Classes/OpenPixelverseWorld2D.gd"
 }, {
 "base": "Node2D",
+"class": "PlayersContainer2D",
+"language": "GDScript",
+"path": "res://src/Classes/PlayersContainer2D.gd"
+}, {
+"base": "Node2D",
 "class": "SpawnArea2D",
 "language": "GDScript",
 "path": "res://src/Classes/SpawnArea2D.gd"
@@ -104,6 +109,7 @@ _global_script_class_icons={
 "Helper": "",
 "ObjectsContainer2D": "",
 "OpenPixelverseWorld2D": "",
+"PlayersContainer2D": "",
 "SpawnArea2D": "",
 "State2D": "",
 "StateIdle2D": "",

@@ -58,3 +58,4 @@ static func build_collision_shape_rectangle(data: Dictionary)->CollisionShape2D:
 # Build and add player detection zone to target.
 func add_player_collision_shape(data: Dictionary)->void:
 	var _PlayerDetectionZone
+	

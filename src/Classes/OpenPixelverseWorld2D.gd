@@ -168,3 +168,8 @@ func subtract_polygon_from_navigation_area(polygon_to_subtract : PoolVector2Arra
 	_NavigationPolygonInstance.set_navigation_polygon(_NavigationPolygon)
 	_NavigationPolygonInstance.enabled = false
 	_NavigationPolygonInstance.enabled = true
+
+
+# Spawn a new player on the map.
+func spawn_player(player_id)->void:
+	_SubjectsContainer.spawn_player(player_id)
