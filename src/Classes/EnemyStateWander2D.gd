@@ -113,7 +113,6 @@ func update(delta):
 	# If we are moving for too long (eg. because we are stuck) we want
 	#  to change the direction.
 	elif OS.get_unix_time() - target_position_change_time >= MAX_MOVEMENT_TIME:
-		print("change target position")
 		setup_target_position()
 	
 	# Continue to move forward if the location is far enough away.

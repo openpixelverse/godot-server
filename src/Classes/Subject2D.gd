@@ -101,7 +101,6 @@ func setup_collision_shape(data: Dictionary)->void:
 	if data.has("collision_shape"):
 		Builder2D.add_collision_shape(self, data.collision_shape)
 
-
 ########################################################
 # Methods                                              #
 ########################################################

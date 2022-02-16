@@ -10,6 +10,7 @@ class_name Builder2D
 # Add build up a collision shape node and add it to the target node.
 static func add_collision_shape(target: Node2D, data: Dictionary)->void:
 	var _CollisionShape = build_collision_shape(data)
+	_CollisionShape.name = "CollisionShape"
 	target.add_child(_CollisionShape)
 
 

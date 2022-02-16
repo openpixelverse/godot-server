@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/OpenPixelverseWorld2D.gd"
 }, {
+"base": "Subject2D",
+"class": "Player2D",
+"language": "GDScript",
+"path": "res://src/Classes/Player2D.gd"
+}, {
 "base": "Node2D",
 "class": "PlayersContainer2D",
 "language": "GDScript",
@@ -109,6 +114,7 @@ _global_script_class_icons={
 "Helper": "",
 "ObjectsContainer2D": "",
 "OpenPixelverseWorld2D": "",
+"Player2D": "",
 "PlayersContainer2D": "",
 "SpawnArea2D": "",
 "State2D": "",
@@ -131,6 +137,10 @@ config/icon="res://icon.png"
 Router="*res://src/Singletons/Router.gd"
 Config="*res://src/Singletons/Config.gd"
 OpenPixelverseAPI="*res://src/Singletons/OpenPixelverseAPI.gd"
+
+[debug]
+
+shapes/collision/shape_color=Color( 1, 1, 1, 0.419608 )
 
 [display]
 

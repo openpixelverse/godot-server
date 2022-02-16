@@ -23,7 +23,7 @@ func _init(data: Dictionary)->void:
 # Setup the subjects container.
 func setup_subjects(data: Dictionary)->void:
 	setup_enemies(data)
-	setup_players_container(data)
+	setup_players(data)
 
 
 # Setup the enemy spawn points and enemies.
@@ -37,6 +37,8 @@ func setup_enemies(data: Dictionary)->void:
 # Setup the players container.
 func setup_players(data: Dictionary)->void:
 	_PlayersContainer = PlayersContainer2D.new()
+	_PlayersContainer.name = "Players"
+	add_child(_PlayersContainer)
 
 
 ########################################################
@@ -69,4 +71,4 @@ func get_subject_data(type : String, name : String)->Dictionary:
 
 # Spawn player.
 func spawn_player(player_id)->void:
-	print("[SubjectsContainer] Spawn new player.")
+	_PlayersContainer.spawn_player(player_id)
