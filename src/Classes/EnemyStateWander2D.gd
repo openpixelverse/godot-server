@@ -9,12 +9,15 @@ class_name EnemyStateWander2D
 
 var WANDER_RANGE : int = 500
 var MIN_DISTANCE : int =  30
+var MAX_MOVEMENT_TIME : int = 20
 
 var target_position : Vector2
 
 var target_directon : Vector2
 
 var target_path : PoolVector2Array
+
+var target_position_change_time : int
 
 var _TargetArea : Area2D
 
@@ -58,11 +61,13 @@ func setup_target_position()->void:
 	if _TargetArea:
 		_TargetArea.queue_free()
 	_TargetArea = Area2D.new()
-	_TargetArea.add_child(_Target.get_node("CollisionShape").duplicate())
+	var _CollisionShape = _Target.get_node("CollisionShape").duplicate()
+	_CollisionShape.set_modulate(Color.yellow)
+	_TargetArea.add_child(_CollisionShape)
 	_TargetArea.position = target_position
 	_TargetArea.set_deferred("scale", _Target.scale)
 	_TargetArea.connect("area_entered", self, "_on_TargetArea_area_entered")
-	add_child(_TargetArea)
+	call_deferred("add_child", _TargetArea)
 	
 	# We can only continue if the target is beyond the min_distance. Otherwise
 	#  the subject will just not move.
@@ -71,6 +76,8 @@ func setup_target_position()->void:
 		target_path = _Navigation.get_simple_path(_Target.global_position, target_position, false)
 		# Remove firest element since this is the current position
 		target_path.remove(0)
+		# Save the time we found the current target.
+		target_position_change_time = OS.get_unix_time()
 	else:
 		# Try again.
 		setup_target_position()
@@ -99,17 +106,23 @@ func update(delta):
 	
 	var distance = _Target.global_position.distance_to(next_position)
 	
+	# If we are very close, we want to simply stop the movement.
+	if distance < 1:
+		_Target.velocity = _Target.move_and_slide(Vector2.ZERO)
+	
+	# If we are moving for too long (eg. because we are stuck) we want
+	#  to change the direction.
+	elif OS.get_unix_time() - target_position_change_time >= MAX_MOVEMENT_TIME:
+		print("change target position")
+		setup_target_position()
+	
 	# Continue to move forward if the location is far enough away.
-	if distance > MIN_DISTANCE:
+	elif distance > MIN_DISTANCE:
 		_Target.velocity = _Target.velocity.move_toward(
 			direction * _Target.stats.speed, 
 			_Target.stats.acceleration * _Target.stats.friction * delta
 		)
 		_Target.velocity = _Target.move_and_slide(_Target.velocity)
-	
-	# If we are very close, we want to simply stop the movement.
-	elif distance < 1:
-		_Target.velocity = _Target.move_and_slide(Vector2.ZERO)
 	
 	# Otherwise reduce movement until we no longer move.
 	else:
