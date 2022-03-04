@@ -32,6 +32,7 @@ func _on_peer_connected(player_id)->void:
 # Called whenever a player disconnects from the server
 func _on_peer_disconnected(player_id)->void:
 	print("User " + str(player_id) + " disconnected")
+	_World.despawn_plyer(player_id)
 
 
 ########################################################

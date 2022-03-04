@@ -40,6 +40,8 @@ static func build_collision_shape_circle(data: Dictionary)->CollisionShape2D:
 	_Shape.set_radius(data.radius)
 	_CollisionShape.shape = _Shape
 	_CollisionShape.set_position(Vector2(int(data.position.x) * 2, int(data.position.y) * 2))
+	if data.has("color"):
+		_CollisionShape.set_modulate(data.color)
 	
 	return _CollisionShape
 

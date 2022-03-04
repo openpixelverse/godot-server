@@ -72,3 +72,8 @@ func get_subject_data(type : String, name : String)->Dictionary:
 # Spawn player.
 func spawn_player(player_id)->void:
 	_PlayersContainer.spawn_player(player_id)
+
+
+# Despawn player.
+func despawn_plyer(player_id)->void:
+	_PlayersContainer.despawn_plyer(player_id)

@@ -24,3 +24,10 @@ func spawn_player(player_id)->void:
 	add_child(_Player, true)
 	# Set the player position.
 	_Player.set_position(player_spawn_point)
+
+
+# Despawn a player if it exists as child.
+func despawn_plyer(player_id)->void:
+	var _Player = get_node(str(player_id))
+	if _Player:
+		_Player.queue_free()

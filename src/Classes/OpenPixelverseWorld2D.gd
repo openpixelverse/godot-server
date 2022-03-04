@@ -173,3 +173,8 @@ func subtract_polygon_from_navigation_area(polygon_to_subtract : PoolVector2Arra
 # Spawn a new player on the map.
 func spawn_player(player_id)->void:
 	_SubjectsContainer.spawn_player(player_id)
+
+
+# Despawn a player from the map.
+func despawn_plyer(player_id)->void:
+	_SubjectsContainer.despawn_plyer(player_id)
