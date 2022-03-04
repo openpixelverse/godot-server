@@ -31,3 +31,12 @@ func despawn_plyer(player_id)->void:
 	var _Player = get_node(str(player_id))
 	if _Player:
 		_Player.queue_free()
+
+
+func get_subject_states()->Dictionary:
+	var subject_states = {}
+	
+	for _Player in get_children():
+		subject_states[_Player.name] = _Player.get_state()
+	
+	return subject_states

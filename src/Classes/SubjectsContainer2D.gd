@@ -53,6 +53,9 @@ func get_subject_states()->Dictionary:
 	if _EnemiesContainer:
 		subject_states["enemies"] = _EnemiesContainer.get_subject_states()
 	
+	if _PlayersContainer:
+		subject_states["players"] = _PlayersContainer.get_subject_states()
+	
 	return subject_states
 
 
