@@ -40,3 +40,9 @@ func get_subject_states()->Dictionary:
 		subject_states[_Player.name] = _Player.get_state()
 	
 	return subject_states
+
+
+func get_subject_data(name : String)->Dictionary:
+	var player_data : Dictionary
+	player_data = OpenPixelverseAPI.load_player_data(name)
+	return player_data

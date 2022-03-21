@@ -64,7 +64,7 @@ func get_subject_data(type : String, name : String)->Dictionary:
 	var data : Dictionary
 	match type:
 		"player":
-			assert(false, "[SubjectsContainer2D] Subjects of type 'player' are not yet implemented.")
+			data = _PlayersContainer.get_subject_data(name)
 		"enemy":
 			data = _EnemiesContainer.get_subject_data(name)
 		_:
