@@ -980,12 +980,15 @@ Mn/Wf6Xl/T8Wl/75Jy8QHQAAAABJRU5ErkJggg=="""
 			"acceleration": 1,
 		},
 		"state": "idle",
+		"states": [
+			"idle",
+		],
 		"collision_shape": {
 			"type": "circle",
 			"radius": 4,
 			"position": {
 				"x": 0,
-				"y": 24
+				"y": 6
 			}
 		},
 	}
